@@ -1,14 +1,21 @@
 import streamlit as st
 from recommendation import get_recommendation
-from streamlit_webrtc import webrtc_streamer
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+import av
 
-# Title
+# ------------------ CAMERA CLASS ------------------
+class VideoTransformer(VideoTransformerBase):
+    def transform(self, frame):
+        img = frame.to_ndarray(format="bgr24")
+        return img
+
+# ------------------ UI ------------------
 st.title("🎧 Mood Based Study + Music AI")
 
 # Mood input
 mood = st.text_input("Enter your mood (happy, sad, stressed, etc.)")
 
-# Button
+# Recommendation button
 if st.button("Get Recommendation"):
     if mood:
         result = get_recommendation(mood)
@@ -23,10 +30,14 @@ if st.button("Get Recommendation"):
     else:
         st.warning("Please enter your mood!")
 
-# Camera Section
+# ------------------ CAMERA SECTION ------------------
 st.subheader("📸 Live Camera")
-webrtc_streamer(key="camera")
 
-# Footer
+webrtc_streamer(
+    key="camera",
+    video_transformer_factory=VideoTransformer
+)
+
+# ------------------ FOOTER ------------------
 st.markdown("---")
 st.markdown("⚡ AI-powered Mood Based Study & Music Recommender")
