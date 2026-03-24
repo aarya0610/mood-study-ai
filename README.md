@@ -15,7 +15,7 @@ This project recommends study material and music based on user's mood.
 - AI Logic
 
 ## 🌐 Live Demo
-(Add your Streamlit link here)
+[Click here to open app 🚀](https://mood-study-ai-hfbuukcwesckyktstlu5n3.streamlit.app/)
 
 ## 👩‍💻 Author
 Aarya Awasthi
